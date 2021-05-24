@@ -133,12 +133,14 @@ int Maze::get_grid_height()
 
 void Maze::set_position(int xOfStart, int xOfEnd, int grid_height)
 {
+    Node* _parent=new Node(0,0);
+    start.parent = _parent;
     start.set_x(xOfStart);
     start.set_y(0);
     end.set_x(xOfEnd);
-    end.set_y(grid_height);
+    end.set_y(grid_height - 1);
     grid[ XYToIndex(xOfStart , 0) ] = ' ';
-    grid[ XYToIndex(xOfEnd , grid_height-1) ] = ' ';
+    grid[ XYToIndex(xOfEnd , grid_height - 1) ] = ' ';
 }
 
 Node& Maze::get_start()
@@ -168,18 +170,36 @@ MazeSolution::MazeSolution(Maze _maze)
     //     std::cout<< "invalid input!!!" <<std::endl;
 }
 
-void MazeSolution::dfs_solver(Node current_state)
+bool MazeSolution::dfs_solver(Node current_state)
 {
+    static size_t flag{0};
     std::list<Node> ways{dfs_helper(current_state)};
-    for(auto item : ways)
-        if(is_goal(item))
-            std::cout<< "congratulations!!!" <<std::endl;
-        else
-            dfs_solver(item);
+
+    for(auto item : ways){
+        if (not flag){
+            if(is_goal(item)){
+                std::cout << "congratulations!!!" << std::endl;
+                flag = 1;
+                std::list<Node> sol;
+                findAnswer(item, sol);
+                sol.push_back(maze.get_start());
+                sol.push_back(maze.get_end());
+                
+                showAnswer(sol); // colortize answer
+                return true;
+            }
+            else
+                dfs_solver(item);
+        }
+    }
+    return false;
 
 }
 
-std::list<Node> MazeSolution::dfs_helper(Node current_state)
+
+
+
+std::list<Node> MazeSolution::dfs_helper(Node& current_state)
 {
     std::list<Node> ways;
     int x{current_state.get_x()};
@@ -190,10 +210,9 @@ std::list<Node> MazeSolution::dfs_helper(Node current_state)
     dirs[1] = EAST;
     dirs[2] = SOUTH;
     dirs[3] = WEST;
-    
+
     for (int i=0; i<4; ++i)
         {
-        
         int dx=0, dy=0;
         switch (dirs[i])
             {
@@ -208,14 +227,30 @@ std::list<Node> MazeSolution::dfs_helper(Node current_state)
                 {
                     
                     if (maze.grid[ maze.XYToIndex(x2,y2) ] == ' ')
-                        {
-                          Node* child =new Node(x2,y2);
-                          child->parent = &current_state;
-                          ways.push_back(*child);
+                        {                                
+                            Node* child =new Node(x2,y2);
+                            child->parent = &current_state;
+                            if (!(isEqualToParent(*child, current_state))){
+                                ways.push_back(*child);
+                            }
+                            else{
+                                
+                            }
                         }
                 }
-        }
+            }
     return ways;
+}
+
+
+bool MazeSolution::isEqualToParent(Node& node, Node& current)
+{
+
+    if (node.get_x() == current.parent->get_x() && node.get_y() == current.parent->get_y())
+    {
+        return true;
+    }
+    return false;
 }
 
 void MazeSolution::bfs_solver(Node current_state)
@@ -225,7 +260,7 @@ void MazeSolution::bfs_solver(Node current_state)
 
 bool MazeSolution::is_goal(Node current)
 {
-    if(current.get_x() == maze.get_end().get_x() && current.get_y() == maze.get_end().get_y()  )
+    if(current.get_x() == maze.get_end().get_x() && current.get_y() == maze.get_end().get_y() - 1  )
         return true;
     return false;
 }
@@ -261,4 +296,5 @@ int Node::get_y()
 {
     return y;
 }
+
 /////////////////////////
