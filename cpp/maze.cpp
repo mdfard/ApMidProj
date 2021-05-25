@@ -197,7 +197,31 @@ bool MazeSolution::dfs_solver(Node current_state)
 }
 
 
+void MazeSolution::showAnswer(std::list<Node>& sol){
+    for (int y=0; y<maze.get_grid_height(); ++y){
+        for (int x=0; x<maze.get_grid_width(); ++x){
+            int flag{0};
+            for (auto item: sol){
+                if (item.get_x() == x && item.get_y() == y){
+                    std::cout <<  "\u001b[43m" << maze.grid[maze.XYToIndex(x,y)] << " " << "\u001b[40m";
+                    flag = 1;
+                    break;
+                }
+            }
+            if (!flag)
+                std::cout << maze.grid[maze.XYToIndex(x,y)] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
 
+
+void MazeSolution::findAnswer(Node& node, std::list<Node>& sol){
+    if (!(node.get_x() == maze.get_start().get_x() && node.get_y() == maze.get_start().get_y())){
+        sol.push_back(node);
+        findAnswer(*node.parent, sol);
+    }
+}
 
 std::list<Node> MazeSolution::dfs_helper(Node& current_state)
 {
