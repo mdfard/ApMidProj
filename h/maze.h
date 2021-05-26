@@ -1,61 +1,38 @@
+#ifndef MAZE
+#define MAZE
 #include <iostream>
 #include <list>
-class Node
-{
-    public:
-        Node();
-        Node(int , int);
-        Node* parent;
-        std::list<Node*> child;
-        void set_x(int);
-        void set_y(int);
-        int get_x();
-        int get_y();
-    private:
-        int x; //position of node
-        int y; //position of node
-};
-///////////////////////////////////////////////////////////////
+#include "node.h"
+#include "mazesolution.h"
+
+class MazeSolution;
+class Node;
+
 class Maze
 {
     public:
         Maze();
-        Maze(int , int );
+        Maze(int , int , const char*);
         void ResetGrid();
         void Visit( int , int);
         void PrintGrid();
+        void set_position(int , int , int);
         int get_grid_width();
         int get_grid_height();
         int XYToIndex( int , int );
         int IsInBounds( int , int );
         char* grid;
-        void set_position(int , int , int);
-        bool is_goal(int);
         Node& get_start();
         Node& get_end();
-
+        const char* get_way();
+        
     private:
         int grid_width;
         int grid_height;
+        const char* way;
         Node start;
         Node end;
         
 };
-////////////////////////////////////////////////////////////////////
-class MazeSolution
-{
-    public:
-        MazeSolution();
-        MazeSolution(Maze);
-        bool dfs_solver(Node);
-        void bfs_solver(Node);
-        void findAnswer(Node& node, std::list<Node>& sol);
-        void showAnswer(std::list<Node>&);
-        bool is_goal(Node);
-        bool isEqualToParent(Node&, Node& current);
-        std::list<Node> dfs_helper(Node&);
 
-    private:
-        Maze maze;
-};
-
+#endif

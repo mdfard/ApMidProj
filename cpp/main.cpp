@@ -1,8 +1,8 @@
 #include "maze.h"
 int main()
     {
-        // Maze mmd = Maze(11,5);
-        MazeSolution(Maze(30,20));
+        MazeSolution(Maze(17,13,"dfs"));
+        
         return 0;
     }
 
