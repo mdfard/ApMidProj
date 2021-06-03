@@ -1,32 +1,9 @@
 #ifndef MAZE
 #define MAZE
 #include <list>
-<<<<<<< HEAD
 #include "node.h"
 
 
-=======
-
-
-
-class Node
-{
-    public:
-        Node();
-        Node(int , int);
-        Node* parent;
-        std::list<Node*> child;
-        void set_x(int);
-        void set_y(int);
-        int get_x();
-        int get_y();
-
-    private:
-        int x; //position of node
-        int y; //position of node
-};
-
->>>>>>> 648936280b775f7a91819e1aec49f654439e39a8
 
 class Maze
 {
@@ -53,25 +30,6 @@ class Maze
         Node start;
         Node end;
         
-};
-
-class MazeSolution
-{
-    public:
-        MazeSolution();
-        MazeSolution(Maze);
-        bool dfs_solver(Node);
-        bool bfs_solver(std::list<Node>&);
-        void findAnswer(Node&, std::list<Node>&);
-        void showAnswer(std::list<Node>&, size_t);
-        bool is_goal(Node);
-        bool isEqualToParent(Node&, Node&);
-        std::list<Node> solve_helper(Node&);
-        bool checkInVisited(Node& node);
-        
-    private:
-        Maze maze;
-        std::list<Node> visited;
 };
 
 #endif
