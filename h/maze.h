@@ -1,7 +1,11 @@
 #ifndef MAZE
 #define MAZE
-#include <iostream>
 #include <list>
+<<<<<<< HEAD
+#include "node.h"
+
+
+=======
 
 
 
@@ -22,6 +26,7 @@ class Node
         int y; //position of node
 };
 
+>>>>>>> 648936280b775f7a91819e1aec49f654439e39a8
 
 class Maze
 {
