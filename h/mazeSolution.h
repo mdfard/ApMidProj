@@ -1,5 +1,6 @@
 #ifndef MAZESOLUTION
 #define MAZESOLUTION
+
 #include <list>
 #include <iostream>
 #include "node.h"

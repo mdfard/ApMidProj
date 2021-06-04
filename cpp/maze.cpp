@@ -2,6 +2,7 @@
 #include<memory>
 #include <unistd.h>
 #include "mazeSolution.h"
+
 //defines
 #define NORTH 0
 #define EAST 1

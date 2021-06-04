@@ -1,9 +1,8 @@
 #ifndef MAZE
 #define MAZE
+
 #include <list>
 #include "node.h"
-
-
 
 class Maze
 {

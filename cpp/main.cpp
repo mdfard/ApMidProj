@@ -3,13 +3,9 @@
 
 int main()
     {
-        Maze m(45,25,"both");
+        Maze m(13,17,"bfs");
         MazeSolution c(m);
 
-
-
-        // MazeSolution(Maze(51,49,"dfs"));
-        
         return 0;
     }
 

@@ -1,10 +1,9 @@
 #include "mazeSolution.h"
+
 #define NORTH 0
 #define EAST 1
 #define SOUTH 2
 #define WEST 3
-
-
 
 Node& Maze::get_start()
 {

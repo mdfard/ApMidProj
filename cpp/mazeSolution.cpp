@@ -1,10 +1,10 @@
 #include "mazeSolution.h"
+#include <cstring>
+
 #define NORTH 0
 #define EAST 1
 #define SOUTH 2
 #define WEST 3
-#include <cstring>
-
 
 MazeSolution::MazeSolution()
 {
